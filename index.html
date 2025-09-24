@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
       tailwind.config = {
@@ -22,25 +23,76 @@
               "background-dark": "#101922",
             },
             fontFamily: {
-              display: ["Inter"],
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              full: "9999px",
+              display: ["Inter", "ui-sans-serif", "system-ui"],
             },
           },
         },
       };
     </script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
     <style>
-      body {
-        font-family: "Inter", sans-serif;
+      /* visual style for accordion header */
+      .accordion-button {
+        gap: 0.5rem;
+        padding: 0.5rem 0.25rem;
+        border-radius: 0.375rem;
+        transition: background-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .accordion-button:hover {
+        background-color: rgba(9,89,170,0.04);
+      }
+      .accordion-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(9,89,170,0.12);
+      }
+      .chev {
+        transition: transform 0.2s ease;
+      }
+      .chev-wrap {
+        transition: background-color 0.15s ease, transform 0.2s ease;
+        border: 1px solid rgba(0,0,0,0.04);
+        color: #0959aa;
+      }
+      .chev-wrap svg {
+        color: inherit;
+        display: block;
+      }
+      .chev path { stroke: currentColor; }
+      .accordion-button[aria-expanded="true"] .chev {
+        transform: rotate(180deg);
+      }
+      .accordion-button[aria-expanded="true"] .chev-wrap {
+        background-color: rgba(9,89,170,0.08);
+        transform: rotate(180deg);
+      }
+      .accordion-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.28s ease, opacity 0.2s ease;
+        opacity: 0;
+      }
+      .accordion-panel:not(.hidden) {
+        opacity: 1;
+        max-height: 2000px;
+      }
+      .custom-link:hover {
+        color: #007bff;
+        text-decoration: underline;
+      }
+      /* Material Symbols setup */
+      .material-symbols-outlined {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 20px;
+        line-height: 1;
+        letter-spacing: normal;
+        text-transform: none;
+        display: inline-block;
+        white-space: nowrap;
+        word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
       }
     </style>
   </head>
@@ -48,6 +100,16 @@
     class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200"
   >
     <div class="mx-auto max-w-4xl p-4 sm:p-6 lg:p-8">
+      <div class="fixed top-4 right-4 z-50">
+        <div id="lang-switcher" class="flex items-center space-x-2 bg-white/80 dark:bg-gray-800/80 rounded-full shadow-sm p-1" role="toolbar" aria-label="Language switcher">
+          <button data-lang="es" class="lang-btn px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center" title="Español" role="button" aria-pressed="false" aria-label="Cambiar a Español" tabindex="0">
+            <img src="https://flagcdn.com/w20/bo.png" alt="Bandera Bolivia" width="20" height="14" class="rounded-sm"/> 
+          </button>
+          <button data-lang="en" class="lang-btn px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center" title="English" role="button" aria-pressed="false" aria-label="Change to English" tabindex="0">
+            <img src="https://flagcdn.com/w20/us.png" alt="US Flag" width="20" height="14" class="rounded-sm"/>
+          </button>
+        </div>
+      </div>
       <div class="flex flex-col items-center space-y-6">
         <div class="flex flex-col items-center space-y-4 text-center">
           <div
@@ -55,15 +117,15 @@
             style="background-image: url('jjct.jpg')"
           ></div>
           <div>
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+            <h1 data-i18n="name" class="text-3xl font-bold text-gray-900 dark:text-white">
               Juan José Cuenca Torrez
             </h1>
-            <p class="text-lg text-primary">
+            <p data-i18n="subtitle" class="text-lg text-primary">
               Ingeniero en Informática · Docente universitario · Especialista en
               TI aplicadas a educación académica y seguridad pública
               automatizada
             </p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">
+            <p data-i18n="contactline" class="text-sm text-gray-500 dark:text-gray-400">
               La Paz, Bolivia · jcuencatorrez@gmail.com · +591 75264002 /
               2490484
             </p>
@@ -71,12 +133,12 @@
         </div>
         <div class="w-full space-y-8">
           <div>
-            <h2
+            <h2 data-i18n="about_title"
               class="mb-4 text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2"
             >
               Sobre mí
             </h2>
-            <p class="text-gray-600 dark:text-gray-300" align="justify">
+            <p data-i18n="about_text" class="text-gray-600 dark:text-gray-300" align="justify">
               Ingeniero en Informática con más de 15 años de experiencia en
               tecnologías de la información, docencia universitaria y proyectos
               de transformación digital. Experto en administración de
@@ -89,27 +151,27 @@
           </div>
 
           <div>
-            <h2
-              class="mb-4 text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2"
-            >
-              Fortalezas & Proyectos relevantes
-            </h2>
-            <div class="space-y-4">
-              <style>
-                .custom-link:hover {
-                  color: #007bff;
-                  text-decoration: underline;
-                }
-              </style>
+            <div class="accordion-item">
+              <h2>
+                <button id="projects-title" data-i18n="projects_title" aria-expanded="false" aria-controls="panel-projects" class="accordion-button mb-4 w-full text-left text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2 flex items-center justify-between">
+                  Fortalezas & Proyectos relevantes
+                  <span class="chev-wrap ml-3 inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/90 dark:bg-gray-800/90">
+                    <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+              </h2>
+              <div id="panel-projects" class="accordion-panel space-y-4 hidden" role="region" aria-labelledby="projects-title">
 
               <div
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="project1_title" class="font-semibold text-gray-900 dark:text-white">
                     Firma digital académica (UMSA)
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="project1_desc" data-i18n-attr="html" class="text-sm text-gray-500 dark:text-gray-400">
                     Integré la firma digital en los certificados académicos
                     (diplomados, maestrías y doctorados) de la Unidad de
                     Postgrado de la Facultad de Derecho y Ciencias Políticas de
@@ -129,7 +191,7 @@
                       >👉 aquí</a
                     >.
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="project1_period" class="text-sm text-gray-500 dark:text-gray-400">
                     Gestión 2022 - 2023
                   </p>
                 </div>
@@ -138,10 +200,10 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="project2_title" class="font-semibold text-gray-900 dark:text-white">
                     Security System 321 (.NET Core)
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="project2_desc" data-i18n-attr="html" class="text-sm text-gray-500 dark:text-gray-400">
                     Diseño y desarrollo del sistema de monitoreo de emergencias
                     <strong>Security System 321</strong> en .NET Core. Este
                     proyecto, inspirado en mi tesis de grado para la obtención
@@ -154,7 +216,7 @@
                       >👉 Repositorio de la UMSA</a
                     >.
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="project2_period" class="text-sm text-gray-500 dark:text-gray-400">
                     Gestión 2018
                   </p>
                 </div>
@@ -164,10 +226,10 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="project3_title" class="font-semibold text-gray-900 dark:text-white">
                     Centros de despacho CADI 110-911
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="project3_desc" data-i18n-attr="html" class="text-sm text-gray-500 dark:text-gray-400">
                     Participé en la puesta en marcha de Centros de Despacho de
                     Llamadas de Emergencia (CAD 911 - 110) en Santa Cruz, Tarija
                     y Pando. Este proyecto tuvo un gran impacto social en la
@@ -183,7 +245,7 @@
                       >👉 Facebook</a
                     >.
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="project3_period" class="text-sm text-gray-500 dark:text-gray-400">
                     2014 - 2018
                   </p>
                 </div>
@@ -192,26 +254,32 @@
           </div>
 
           <div>
-            <h2
-              class="mb-4 text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2"
-            >
-              Experiencia
-            </h2>
-            <div class="space-y-6">
+            <div class="accordion-item">
+              <h2>
+                <button id="experience-title" data-i18n="experience_title" aria-expanded="false" aria-controls="panel-experience" class="accordion-button mb-4 w-full text-left text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2 flex items-center justify-between">
+                  Experiencia
+                  <span class="chev-wrap ml-3 inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/90 dark:bg-gray-800/90">
+                    <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+              </h2>
+              <div id="panel-experience" class="accordion-panel space-y-6 hidden" role="region" aria-labelledby="experience-title">
               <div
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="exp1_title" class="font-semibold text-gray-900 dark:text-white">
                     Gestor de Habilidades Digitales — Manq'a Sostenible
                   </h3>
-                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                  <p data-i18n="exp1_desc" class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     Encargado de transferencias de habilidades digitales a
                     comunidades vulnerables - Desarrollo e implementación de CMS
                     Moodle y sistema de inscripciones académicas bajo tecnología
                     de código abierto.
                   </p>
-                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p data-i18n="exp1_period" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     2025 - Presente
                   </p>
                 </div>
@@ -221,16 +289,16 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="exp2_title" class="font-semibold text-gray-900 dark:text-white">
                     Administrador de mercados y plataformas digitales — ONG
                     Conexión
                   </h3>
-                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                  <p data-i18n="exp2_desc" class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     Encargado de gestionar y optimizar plataformas digitales
                     para comunidades vulnerables dentro del proyecto de
                     ConexiónLab
                   </p>
-                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p data-i18n="exp2_period" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     2024
                   </p>
                 </div>
@@ -240,10 +308,10 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="exp3_title" class="font-semibold text-gray-900 dark:text-white">
                     Docente — Armada Boliviana (Escuela Marítima)
                   </h3>
-                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                  <p data-i18n="exp3_desc" class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     Materias: Comercio Electrónico y TICs aplicadas a la
                     internacionalización para la carrera de Logistica
                     Internacional y Transporte Marítimo, Derecho Informático
@@ -252,7 +320,7 @@
                     Sistemas de Mercadeo para la carrera de Ingeniería de
                     Sistemas y Seguridad
                   </p>
-                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p data-i18n="exp3_period" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     2021 - 2025
                   </p>
                 </div>
@@ -262,16 +330,16 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="exp4_title" class="font-semibold text-gray-900 dark:text-white">
                     Técnico I / Consultor de plataformas — Universidad Mayor de
                     San Andrés (Facultad de Derecho y Ciencias Políticas)
                   </h3>
-                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                  <p data-i18n="exp4_desc" class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     Técnico de plataforma, programas virtuales y redes
                     (consultor en línea). Implementación de firma digital para
                     certificados académicos.
                   </p>
-                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p data-i18n="exp4_period" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     2021 - 2024
                   </p>
                 </div>
@@ -281,15 +349,15 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="exp5_title" class="font-semibold text-gray-900 dark:text-white">
                     Analista de sistemas / Soporte LATAM — MobileTec
                     International Inc. (Sucursal Bolivia)
                   </h3>
-                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                  <p data-i18n="exp5_desc" class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     Analista de sistemas, docencia y capacitación en productos
                     CAD; participación en implementaciones CADI 110-911.
                   </p>
-                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p data-i18n="exp5_period" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     2014 - 2019
                   </p>
                 </div>
@@ -299,39 +367,46 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="exp6_title" class="font-semibold text-gray-900 dark:text-white">
                     Otros cargos técnicos y de soporte
                   </h3>
-                  <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                  <p data-i18n="exp6_desc" class="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     Pasantías y responsabilidades técnicas en YPFB, IRT, Medical
                     Tech, entre otros
                   </p>
-                  <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <p data-i18n="exp6_period" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                     2006 - 2013
                   </p>
                 </div>
               </div>
+              </div>
             </div>
           </div>
 
           <div>
-            <h2
-              class="mb-4 text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2"
-            >
-              Educación
-            </h2>
-            <div class="space-y-4">
+            <div class="accordion-item">
+              <h2>
+                <button id="education-title" data-i18n="education_title" aria-expanded="false" aria-controls="panel-education" class="accordion-button mb-4 w-full text-left text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2 flex items-center justify-between">
+                  Educación
+                  <span class="chev-wrap ml-3 inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/90 dark:bg-gray-800/90">
+                    <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+              </h2>
+              <div id="panel-education" class="accordion-panel space-y-4 hidden" role="region" aria-labelledby="education-title">
               <div
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="edu1_title" class="font-semibold text-gray-900 dark:text-white">
                     Insignia - Certificación Google Data Analytics
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="edu1_institute" class="text-sm text-gray-500 dark:text-gray-400">
                     Inco Academy - Coursera, EE.UU. (Virtual)
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">2025</p>
+                  <p data-i18n="edu1_year" class="text-sm text-gray-500 dark:text-gray-400">2025</p>
                 </div>
               </div>
 
@@ -339,14 +414,14 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="edu2_title" class="font-semibold text-gray-900 dark:text-white">
                     Especialidad - Inteligencia Artificial, Business
                     Intelligence, BI Cloud & Big Data
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="edu2_institute" class="text-sm text-gray-500 dark:text-gray-400">
                     DMC, Perú
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">2023</p>
+                  <p data-i18n="edu2_year" class="text-sm text-gray-500 dark:text-gray-400">2023</p>
                 </div>
               </div>
 
@@ -354,14 +429,14 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="edu3_title" class="font-semibold text-gray-900 dark:text-white">
                     Diplomado - Administración de Empresas y Estrategia
                     Gerencial
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="edu3_institute" class="text-sm text-gray-500 dark:text-gray-400">
                     Universidad Los Andes, Bolivia
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">2018</p>
+                  <p data-i18n="edu3_year" class="text-sm text-gray-500 dark:text-gray-400">2018</p>
                 </div>
               </div>
 
@@ -369,14 +444,14 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="edu4_title" class="font-semibold text-gray-900 dark:text-white">
                     Especialista - Educación Superior y Diseño Curricular
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="edu4_institute" class="text-sm text-gray-500 dark:text-gray-400">
                     Universidad Real de la cámara de Comercio y la Universidad
                     Marítima de Bolivia, Bolivia
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">2020</p>
+                  <p data-i18n="edu4_year" class="text-sm text-gray-500 dark:text-gray-400">2020</p>
                 </div>
               </div>
 
@@ -384,21 +459,22 @@
                 class="rounded-lg bg-background-light p-4 shadow-sm dark:bg-background-dark dark:border dark:border-white/10"
               >
                 <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">
+                  <h3 data-i18n="edu5_title" class="font-semibold text-gray-900 dark:text-white">
                     Grado en Ingeniería Informática
                   </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                  <p data-i18n="edu5_institute" class="text-sm text-gray-500 dark:text-gray-400">
                     Universidad Mayor de San Andrés - Facultad de Ciencias Puras
                     y Naturales, Bolivia
                   </p>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">2017</p>
+                  <p data-i18n="edu5_year" class="text-sm text-gray-500 dark:text-gray-400">2017</p>
                 </div>
+              </div>
               </div>
             </div>
           </div>
 
           <div>
-            <h2
+            <h2 data-i18n="skills_title"
               class="mb-4 text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2"
             >
               Habilidades
@@ -410,7 +486,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >hub</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_node" data-i18n="skill_node"
                       >Node.js</span
                     >
                   </div>
@@ -435,7 +511,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >html</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_html" data-i18n="skill_html"
                       >HTML</span
                     >
                   </div>
@@ -460,7 +536,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >code</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_react" data-i18n="skill_react"
                       >React</span
                     >
                   </div>
@@ -485,7 +561,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >data_object</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_python" data-i18n="skill_python"
                       >Python</span
                     >
                   </div>
@@ -510,7 +586,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >css</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_css" data-i18n="skill_css"
                       >CSS</span
                     >
                   </div>
@@ -535,7 +611,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >php</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_php" data-i18n="skill_php"
                       >PHP</span
                     >
                   </div>
@@ -560,7 +636,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >storage</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_gcloud" data-i18n="skill_gcloud"
                       >Google Cloud</span
                     >
                   </div>
@@ -585,7 +661,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >Analytics</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_powerbi" data-i18n="skill_powerbi"
                       >Power BI</span
                     >
                   </div>
@@ -610,7 +686,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >database</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_mysql" data-i18n="skill_mysql"
                       >MySql</span
                     >
                   </div>
@@ -635,7 +711,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >database</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_postgres" data-i18n="skill_postgres"
                       >Postgres SQL</span
                     >
                   </div>
@@ -660,7 +736,7 @@
                     <span class="material-symbols-outlined text-primary"
                       >database</span
                     >
-                    <span class="font-medium text-gray-900 dark:text-white"
+                    <span class="font-medium text-gray-900 dark:text-white" data-i18n-text="skill_sqlserver" data-i18n="skill_sqlserver"
                       >SQL Server</span
                     >
                   </div>
@@ -682,14 +758,14 @@
           </div>
 
           <div>
-            <h2
+            <h2 data-i18n="contact_title"
               class="mb-4 text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2"
             >
               Contacto
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
-                <h3
+                <h3 data-i18n="location_title"
                   class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
                 >
                   Ubicación
@@ -709,14 +785,14 @@
                 </div>
               </div>
               <div>
-                <h3
+                <h3 data-i18n="form_title"
                   class="text-lg font-semibold text-gray-900 dark:text-white mb-2"
                 >
                   Formulario de Contacto
                 </h3>
                 <form id="contact-form" class="space-y-4">
                   <div>
-                    <label
+                    <label data-i18n="label_name"
                       class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                       for="name"
                       >Nombre</label
@@ -730,7 +806,7 @@
                     />
                   </div>
                   <div>
-                    <label
+                    <label data-i18n="label_email"
                       class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                       for="email"
                       >Email</label
@@ -744,7 +820,7 @@
                     />
                   </div>
                   <div>
-                    <label
+                    <label data-i18n="label_message"
                       class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                       for="message"
                       >Mensaje</label
@@ -760,6 +836,7 @@
                   <div>
                     <button
                       id="send-btn"
+                      data-i18n="send_button"
                       class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                       type="button"
                     >
@@ -803,6 +880,316 @@
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
         window.open(whatsappUrl, "_blank");
       });
+    </script>
+
+    <script>
+      // Traducciones mínimas Español / Inglés
+      const translations = {
+        es: {
+          name: "Juan José Cuenca Torrez",
+          subtitle:
+            "Ingeniero en Informática · Docente universitario · Especialista en TI aplicadas a educación académica y seguridad pública automatizada",
+          contactline: "La Paz, Bolivia · jcuencatorrez@gmail.com · +591 75264002 / 2490484",
+          about_title: "Sobre mí",
+          about_text:
+            "Ingeniero en Informática con más de 15 años de experiencia en tecnologías de la información, docencia universitaria y proyectos de transformación digital. Experto en administración de plataformas virtuales, análisis de datos, desarrollo de software y soluciones de seguridad ciudadana. Trayectoria probada en implementación de sistemas de emergencia, firma digital académica con tecnología de código abierto y formación de profesionales en entornos virtuales de aprendizaje.",
+          projects_title: "Fortalezas & Proyectos relevantes",
+          project1_title: "Firma digital académica (UMSA)",
+          project1_desc:
+            'Integré la firma digital en los certificados académicos (diplomados, maestrías y doctorados) de la Unidad de Postgrado de la Facultad de Derecho y Ciencias Políticas de la UMSA. Implementada con tecnología de código abierto, esta solución permitió descentralizar la emisión de certificados físicos y agilizar la generación de más de 3.000 documentos solo durante la gestión 2023. La firma digital institucional, a cargo de la director de postgrado Ph.D. Karina Medinaceli Díaz y el señor decano de la facultad M.Sc. Javier Tapia, fortaleció la seguridad documental, optimizó los procesos administrativos y facilitó la entrega oportuna de los reconocimientos académicos. Puedes ver una nota sobre este proyecto <a href="https://www.facebook.com/watch/?v=511139313130727" class="custom-link">👉 aquí</a>.',
+          project1_period: "Gestión 2022 - 2023",
+          project2_title: "Security System 321 (.NET Core)",
+          project2_desc:
+            'Diseño y desarrollo del sistema de monitoreo de emergencias <strong>Security System 321</strong> en .NET Core. Este proyecto, inspirado en mi tesis de grado para la obtención del título profesional, se concretó a través de un convenio de implementación con los Bomberos SAR Bolivia – filial La Paz. Puedes consultar la tesis completa en el <a href="https://repositorio.umsa.bo/handle/123456789/12326" class="custom-link">👉 Repositorio de la UMSA</a>.',
+          project2_period: "Gestión 2018",
+          project3_title: "Centros de despacho CADI 110-911",
+          project3_desc:
+            'Participé en la puesta en marcha de Centros de Despacho de Llamadas de Emergencia (CAD 911 - 110) en Santa Cruz, Tarija y Pando. Este proyecto tuvo un gran impacto social en la seguridad ciudadana, y puedes ver más detalles en el sitio web oficial de la empresa: <a href="https://mobiletec.net/es/" class="custom-link">👉 Mobiletec Inc.</a> y en su página de <a href="https://www.facebook.com/share/v/1CnfcHbzDT/" class="custom-link">👉 Facebook</a>.',
+          project3_period: "2014 - 2018",
+          experience_title: "Experiencia",
+          exp1_title: "Gestor de Habilidades Digitales — Manq'a Sostenible",
+          exp1_desc:
+            "Encargado de transferencias de habilidades digitales a comunidades vulnerables - Desarrollo e implementación de CMS Moodle y sistema de inscripciones académicas bajo tecnología de código abierto.",
+          exp1_period: "2025 - Presente",
+          exp2_title: "Administrador de mercados y plataformas digitales — ONG Conexión",
+          exp2_desc:
+            "Encargado de gestionar y optimizar plataformas digitales para comunidades vulnerables dentro del proyecto de ConexiónLab",
+          exp2_period: "2024",
+          exp3_title: "Docente — Armada Boliviana (Escuela Marítima)",
+          exp3_desc:
+            "Materias: Comercio Electrónico y TICs aplicadas a la internacionalización para la carrera de Logistica Internacional y Transporte Marítimo, Derecho Informático para la carrera de Derecho y Ciencias Jurídicas, Energías Renovables para la carrera de Ingenieria Electrónica, Sistemas de Mercadeo para la carrera de Ingeniería de Sistemas y Seguridad",
+          exp3_period: "2021 - 2025",
+          exp4_title:
+            "Técnico I / Consultor de plataformas — Universidad Mayor de San Andrés (Facultad de Derecho y Ciencias Políticas)",
+          exp4_desc:
+            "Técnico de plataforma, programas virtuales y redes (consultor en línea). Implementación de firma digital para certificados académicos.",
+          exp4_period: "2021 - 2024",
+          exp5_title:
+            "Analista de sistemas / Soporte LATAM — MobileTec International Inc. (Sucursal Bolivia)",
+          exp5_desc:
+            "Analista de sistemas, docencia y capacitación en productos CAD; participación en implementaciones CADI 110-911.",
+          exp5_period: "2014 - 2019",
+          exp6_title: "Otros cargos técnicos y de soporte",
+          exp6_desc: "Pasantías y responsabilidades técnicas en YPFB, IRT, Medical Tech, entre otros",
+          exp6_period: "2006 - 2013",
+          education_title: "Educación",
+          edu1_title: "Insignia - Certificación Google Data Analytics",
+          edu1_institute: "Inco Academy - Coursera, EE.UU. (Virtual)",
+          edu1_year: "2025",
+          edu2_title: "Especialidad - Inteligencia Artificial, Business Intelligence, BI Cloud & Big Data",
+          edu2_institute: "DMC, Perú",
+          edu2_year: "2023",
+          edu3_title: "Diplomado - Administración de Empresas y Estrategia Gerencial",
+          edu3_institute: "Universidad Los Andes, Bolivia",
+          edu3_year: "2018",
+          edu4_title: "Especialista - Educación Superior y Diseño Curricular",
+          edu4_institute: "Universidad Real de la cámara de Comercio y la Universidad Marítima de Bolivia, Bolivia",
+          edu4_year: "2020",
+          edu5_title: "Grado en Ingeniería Informática",
+          edu5_institute: "Universidad Mayor de San Andrés - Facultad de Ciencias Puras y Naturales, Bolivia",
+          edu5_year: "2017",
+          skills_title: "Habilidades",
+          skill_node: "Node.js",
+          skill_html: "HTML",
+          skill_react: "React",
+          skill_python: "Python",
+          skill_css: "CSS",
+          skill_php: "PHP",
+          skill_gcloud: "Google Cloud",
+          skill_powerbi: "Power BI",
+          skill_mysql: "MySql",
+          skill_postgres: "Postgres SQL",
+          skill_sqlserver: "SQL Server",
+          contact_title: "Contacto",
+          location_title: "Ubicación",
+          form_title: "Formulario de Contacto",
+          label_name: "Nombre",
+          label_email: "Email",
+          label_message: "Mensaje",
+          send_button: "Enviar Mensaje",
+  },
+        en: {
+          name: "Juan José Cuenca Torrez",
+          subtitle:
+            "Computer Engineer · University Lecturer · Specialist in IT applied to academic education and automated public safety",
+          contactline: "La Paz, Bolivia · jcuencatorrez@gmail.com · +591 75264002 / 2490484",
+          about_title: "About me",
+          about_text:
+            "Computer Engineer with over 15 years of experience in information technologies, university teaching and digital transformation projects. Expert in virtual platform administration, data analysis, software development and citizen security solutions. Proven track record implementing emergency systems, academic digital signatures using open-source technology, and training professionals in virtual learning environments.",
+          projects_title: "Strengths & Relevant Projects",
+          project1_title: "Academic Digital Signature (UMSA)",
+          project1_desc:
+            'I integrated the digital signature into academic certificates (diplomas, masters and doctorates) of the Graduate Unit of the Faculty of Law and Political Sciences at UMSA. Implemented with open-source technology, this solution allowed decentralization of physical certificate issuance and sped up the generation of more than 3,000 documents during 2023. The institutional digital signature, led by the graduate director Ph.D. Karina Medinaceli Díaz and the dean M.Sc. Javier Tapia, strengthened document security, optimized administrative processes and facilitated timely delivery of academic recognitions. You can see a note about this project <a href="https://www.facebook.com/watch/?v=511139313130727" class="custom-link">👉 here</a>.',
+          project1_period: "2022 - 2023",
+          project2_title: "Security System 321 (.NET Core)",
+          project2_desc:
+            'Design and development of the emergency monitoring system <strong>Security System 321</strong> in .NET Core. This project, inspired by my undergraduate thesis, was implemented through an agreement with Bomberos SAR Bolivia – La Paz branch. You can consult the full thesis at the <a href="https://repositorio.umsa.bo/handle/123456789/12326" class="custom-link">👉 UMSA Repository</a>.',
+          project2_period: "2018",
+          project3_title: "CADI 110-911 Dispatch Centers",
+          project3_desc:
+            'I participated in the deployment of Emergency Call Dispatch Centers (CAD 911 - 110) in Santa Cruz, Tarija and Pando. This project had a significant social impact on citizen security; more details are available on the company website: <a href="https://mobiletec.net/es/" class="custom-link">👉 Mobiletec Inc.</a> and on their <a href="https://www.facebook.com/share/v/1CnfcHbzDT/" class="custom-link">👉 Facebook</a>.',
+          project3_period: "2014 - 2018",
+          experience_title: "Experience",
+          exp1_title: "Digital Skills Manager — Manq'a Sostenible",
+          exp1_desc:
+            "Responsible for transferring digital skills to vulnerable communities - Development and implementation of Moodle CMS and an academic enrollment system based on open-source technology.",
+          exp1_period: "2025 - Present",
+          exp2_title: "Marketplace & Digital Platforms Admin — NGO Conexión",
+          exp2_desc:
+            "Responsible for managing and optimizing digital platforms for vulnerable communities within the ConexiónLab project",
+          exp2_period: "2024",
+          exp3_title: "Lecturer — Bolivian Navy (Maritime School)",
+          exp3_desc:
+            "Subjects: E-commerce and ICTs applied to internationalization for the Bachelor's degree in International Logistics and Maritime Transport, Computer Law for Law and Legal Sciences, Renewable Energies for the Electronic Engineering degree, Marketing Systems for the Systems Engineering and Security degree",
+          exp3_period: "2021 - 2025",
+          exp4_title:
+            "Technician I / Platforms Consultant — Universidad Mayor de San Andrés (Faculty of Law and Political Sciences)",
+          exp4_desc:
+            "Platform technician, virtual programs and networks (online consultant). Implementation of digital signature for academic certificates.",
+          exp4_period: "2021 - 2024",
+          exp5_title:
+            "Systems Analyst / LATAM Support — MobileTec International Inc. (Bolivia Branch)",
+          exp5_desc:
+            "Systems analyst, training and education on CAD products; participation in CADI 110-911 deployments.",
+          exp5_period: "2014 - 2019",
+          exp6_title: "Other technical and support roles",
+          exp6_desc: "Internships and technical responsibilities at YPFB, IRT, Medical Tech, among others",
+          exp6_period: "2006 - 2013",
+          education_title: "Education",
+          edu1_title: "Badge - Google Data Analytics Certification",
+          edu1_institute: "Inco Academy - Coursera, USA (Online)",
+          edu1_year: "2025",
+          edu2_title: "Specialization - Artificial Intelligence, Business Intelligence, BI Cloud & Big Data",
+          edu2_institute: "DMC, Peru",
+          edu2_year: "2023",
+          edu3_title: "Diploma - Business Administration and Managerial Strategy",
+          edu3_institute: "Universidad Los Andes, Bolivia",
+          edu3_year: "2018",
+          edu4_title: "Specialist - Higher Education and Curriculum Design",
+          edu4_institute: "Real University of the Chamber of Commerce and the Maritime University of Bolivia, Bolivia",
+          edu4_year: "2020",
+          edu5_title: "Bachelor's Degree in Computer Engineering",
+          edu5_institute: "Universidad Mayor de San Andrés - Faculty of Pure and Natural Sciences, Bolivia",
+          edu5_year: "2017",
+          skills_title: "Skills",
+          skill_node: "Node.js",
+          skill_html: "HTML",
+          skill_react: "React",
+          skill_python: "Python",
+          skill_css: "CSS",
+          skill_php: "PHP",
+          skill_gcloud: "Google Cloud",
+          skill_powerbi: "Power BI",
+          skill_mysql: "MySql",
+          skill_postgres: "Postgres SQL",
+          skill_sqlserver: "SQL Server",
+          contact_title: "Contact",
+          location_title: "Location",
+          form_title: "Contact Form",
+          label_name: "Name",
+          label_email: "Email",
+          label_message: "Message",
+          send_button: "Send Message",
+  },
+      };
+
+      function applyTranslations(lang) {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          if (!key) return;
+          const isHtml = el.getAttribute("data-i18n-attr") === "html";
+          const text = translations[lang] && translations[lang][key];
+          if (text === undefined) return;
+          if (isHtml) {
+            el.innerHTML = text;
+          } else {
+            // Si el elemento contiene iconos o hijos, no sobreescribimos todo el innerHTML
+            const hasIcon = el.querySelector && el.querySelector('.material-symbols-outlined');
+            const hasChildren = el.children && el.children.length > 0;
+            if (hasIcon || hasChildren) {
+              // Preferimos un sub-elemento marcado para texto
+              const textTarget = el.querySelector('[data-i18n-text]');
+              if (textTarget) {
+                textTarget.textContent = text;
+              } else {
+                // Reemplazar solo el primer Text node directo (preservando elementos hijos)
+                for (let i = 0; i < el.childNodes.length; i++) {
+                  const node = el.childNodes[i];
+                  if (node.nodeType === Node.TEXT_NODE) {
+                    node.textContent = text;
+                    break;
+                  }
+                }
+              }
+            } else {
+              el.textContent = text;
+            }
+          }
+          // si tiene título traducible
+          const titleKey = el.getAttribute("data-i18n-title");
+          if (titleKey && translations[lang] && translations[lang][titleKey]) {
+            el.setAttribute("title", translations[lang][titleKey]);
+          }
+        });
+      }
+
+      function setLanguage(lang) {
+        if (!translations[lang]) return;
+        localStorage.setItem("site_lang", lang);
+        applyTranslations(lang);
+        // marcar botón activo
+        document.querySelectorAll(".lang-btn").forEach((b) => {
+          const isActive = b.getAttribute("data-lang") === lang;
+          b.classList.toggle("ring-2", isActive);
+          b.classList.toggle("lang-active", isActive);
+          b.setAttribute("aria-pressed", isActive ? "true" : "false");
+          // actualizar aria-label para accesibilidad
+          if (isActive) {
+            b.setAttribute("aria-label", lang === "es" ? "Idioma seleccionado: Español" : "Selected language: English");
+          } else {
+            b.setAttribute("aria-label", b.getAttribute("data-lang") === "es" ? "Cambiar a Español" : "Change to English");
+          }
+        });
+      }
+
+      // Inicializar
+      (function () {
+        const saved = localStorage.getItem("site_lang");
+        const initial = saved ? saved : (navigator.language && navigator.language.startsWith("en") ? "en" : "es");
+        applyTranslations(initial);
+
+        // listeners en botones
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const lang = btn.getAttribute("data-lang");
+            setLanguage(lang);
+          });
+          btn.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              const lang = btn.getAttribute("data-lang");
+              setLanguage(lang);
+            }
+          });
+        });
+        // aplicar indicador visual al botón seleccionado
+        document.querySelectorAll(".lang-btn").forEach((b) => {
+          const isActive = b.getAttribute("data-lang") === initial;
+          b.classList.toggle("ring-2", isActive);
+          b.classList.toggle("lang-active", isActive);
+          b.setAttribute("aria-pressed", isActive ? "true" : "false");
+          b.setAttribute("aria-label", isActive ? (initial === "es" ? "Idioma seleccionado: Español" : "Selected language: English") : (b.getAttribute("data-lang") === "es" ? "Cambiar a Español" : "Change to English"));
+        });
+      })();
+    </script>
+    <script>
+      // Acordeón accesible: toggle panels
+      (function () {
+        const buttons = document.querySelectorAll('.accordion-button');
+        function closeAllExcept(current) {
+          buttons.forEach((btn) => {
+            if (btn !== current) {
+              btn.setAttribute('aria-expanded', 'false');
+              const pid = btn.getAttribute('aria-controls');
+              const panel = document.getElementById(pid);
+              if (panel) panel.classList.add('hidden');
+            }
+          });
+        }
+        // Inicializar: abrir el primer panel por defecto
+        if (buttons.length > 0) {
+          buttons.forEach((btn, idx) => {
+            const pid = btn.getAttribute('aria-controls');
+            const panel = document.getElementById(pid);
+            if (idx === 0) {
+              btn.setAttribute('aria-expanded', 'true');
+              if (panel) panel.classList.remove('hidden');
+            } else {
+              btn.setAttribute('aria-expanded', 'false');
+              if (panel) panel.classList.add('hidden');
+            }
+          });
+        }
+        buttons.forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            // toggle
+            btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            const pid = btn.getAttribute('aria-controls');
+            const panel = document.getElementById(pid);
+            if (panel) panel.classList.toggle('hidden');
+            // opcional: cerrar otros panes (comportamiento tipo acordeón)
+            if (!expanded) closeAllExcept(btn);
+          });
+          btn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              btn.click();
+            }
+          });
+        });
+      })();
     </script>
   </body>
 </html>
