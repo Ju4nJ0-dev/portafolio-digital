@@ -94,6 +94,39 @@
   font-feature-settings: 'liga';
         -webkit-font-smoothing: antialiased;
       }
+      /* Modal para visor de imágenes */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+      }
+      .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        background: white;
+        border-radius: 8px;
+        padding: 0.5rem;
+      }
+      .modal-content img { display: block; max-width: 100%; max-height: 80vh; border-radius: 6px; }
+      .modal-close {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 9999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body
@@ -257,7 +290,7 @@
             <div class="accordion-item">
               <h2>
                 <button id="experience-title" data-i18n="experience_title" aria-expanded="false" aria-controls="panel-experience" class="accordion-button mb-4 w-full text-left text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2 flex items-center justify-between">
-                  Experiencia
+                  Experiencia laboral
                   <span class="chev-wrap ml-3 inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/90 dark:bg-gray-800/90">
                     <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -383,6 +416,60 @@
             </div>
           </div>
 
+          <!-- Nuevo acordeón: Portafolio de productos -->
+          <div>
+            <div class="accordion-item">
+              <h2>
+                <button id="portfolio-title" data-i18n="portfolio_title" aria-expanded="false" aria-controls="panel-portfolio" class="accordion-button mb-4 w-full text-left text-2xl font-bold text-gray-900 dark:text-white border-b-2 border-primary/30 pb-2 flex items-center justify-between">
+                  Portafolio de productos
+                  <span class="chev-wrap ml-3 inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/90 dark:bg-gray-800/90">
+                    <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+              </h2>
+              <div id="panel-portfolio" class="accordion-panel space-y-4 hidden" role="region" aria-labelledby="portfolio-title">
+                <div class="grid grid-cols-3 gap-4">
+                  <div>
+                    <a href="#" data-src="515593630_306183893200552406_1578933392038796767087_n.png" class="portfolio-thumb block rounded overflow-hidden" title="Firma digital">
+                      <img src="515593630_306183893200552406_1578933392038796767087_n.png" alt="Imagen 1" class="w-full h-24 object-cover" />
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2" data-i18n="portfolio_caption_1">Certificado firmado electrónicamente - Postgrado FDCP - UMSA</p>
+                  </div>
+                  <div>
+                    <a href="#" data-src="126853412_4928633123821045_389516968135210338_n.jpg" class="portfolio-thumb block rounded overflow-hidden" title="Security System 321">
+                      <img src="126853412_4928633123821045_389516968135210338_n.jpg" alt="Imagen 2" class="w-full h-24 object-cover" />
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2" data-i18n="portfolio_caption_2">Firma de convenio con Bomberos SAR Bolivia Filial La Paz, implementacion "Security System 321"</p>
+                  </div>
+
+                  <div>
+                    <a href="#" data-src="514255058_30520773164180356_2080625754539602736_n.jpg" class="portfolio-thumb block rounded overflow-hidden" title="CADI 110-911 Cobija - Pando">
+                      <img src="514255058_30520773164180356_2080625754539602736_n.jpg" alt="Imagen 3" class="w-full h-24 object-cover" />
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2" data-i18n="portfolio_caption_3">Implementación de CADI 110-911 en Cobija - Pando</p>
+                  </div>
+
+                  <div>
+                    <a href="#" data-src="515593630_30618389321085406_1546392038733387087_n.jpg" class="portfolio-thumb block rounded overflow-hidden" title="CADI 110-911 Tarija">
+                      <img src="515593630_30618389321085406_1546392038733387087_n.jpg" alt="Imagen 4" class="w-full h-24 object-cover" />
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2" data-i18n="portfolio_caption_3">Implementación de CADI 110-911 en Tarija</p>
+                  </div>
+
+                  <div>
+                    <a href="#" data-src="496767914_29815955427995470_952643646341117029_n.jpg" class="portfolio-thumb block rounded overflow-hidden" title="Docente en Armada Boliviana - Escuela Marítima">
+                      <img src="496767914_29815955427995470_952643646341117029_n.jpg" alt="Imagen 5" class="w-full h-24 object-cover" />
+                    </a>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-2" data-i18n="portfolio_caption_3">Docente en Armada Boliviana - Escuela Marítima</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div>
             <div class="accordion-item">
               <h2>
@@ -492,7 +579,7 @@
                   </div>
                   <span
                     class="text-sm font-medium text-gray-500 dark:text-gray-400"
-                    >50%</span
+                    >40%</span
                   >
                 </div>
                 <div
@@ -500,7 +587,7 @@
                 >
                   <div
                     class="h-2 rounded-full bg-primary"
-                    style="width: 50%"
+                    style="width: 40%"
                   ></div>
                 </div>
               </div>
@@ -542,7 +629,7 @@
                   </div>
                   <span
                     class="text-sm font-medium text-gray-500 dark:text-gray-400"
-                    >70%</span
+                    >35%</span
                   >
                 </div>
                 <div
@@ -550,7 +637,7 @@
                 >
                   <div
                     class="h-2 rounded-full bg-primary"
-                    style="width: 70%"
+                    style="width: 35%"
                   ></div>
                 </div>
               </div>
@@ -667,7 +754,7 @@
                   </div>
                   <span
                     class="text-sm font-medium text-gray-500 dark:text-gray-400"
-                    >40%</span
+                    >25%</span
                   >
                 </div>
                 <div
@@ -675,7 +762,7 @@
                 >
                   <div
                     class="h-2 rounded-full bg-primary"
-                    style="width: 40%"
+                    style="width: 25%"
                   ></div>
                 </div>
               </div>
@@ -906,7 +993,11 @@
           project3_desc:
             'Participé en la puesta en marcha de Centros de Despacho de Llamadas de Emergencia (CAD 911 - 110) en Santa Cruz, Tarija y Pando. Este proyecto tuvo un gran impacto social en la seguridad ciudadana, y puedes ver más detalles en el sitio web oficial de la empresa: <a href="https://mobiletec.net/es/" class="custom-link">👉 Mobiletec Inc.</a> y en su página de <a href="https://www.facebook.com/share/v/1CnfcHbzDT/" class="custom-link">👉 Facebook</a>.',
           project3_period: "2014 - 2018",
-          experience_title: "Experiencia",
+          experience_title: "Experiencia laboral",
+          portfolio_title: "Portafolio de productos",
+          portfolio_caption_1: "leyenda de imagen",
+          portfolio_caption_2: "leyenda de imagen",
+          portfolio_caption_3: "leyenda de imagen",
           exp1_title: "Gestor de Habilidades Digitales — Manq'a Sostenible",
           exp1_desc:
             "Encargado de transferencias de habilidades digitales a comunidades vulnerables - Desarrollo e implementación de CMS Moodle y sistema de inscripciones académicas bajo tecnología de código abierto.",
@@ -989,7 +1080,7 @@
           project3_desc:
             'I participated in the deployment of Emergency Call Dispatch Centers (CAD 911 - 110) in Santa Cruz, Tarija and Pando. This project had a significant social impact on citizen security; more details are available on the company website: <a href="https://mobiletec.net/es/" class="custom-link">👉 Mobiletec Inc.</a> and on their <a href="https://www.facebook.com/share/v/1CnfcHbzDT/" class="custom-link">👉 Facebook</a>.',
           project3_period: "2014 - 2018",
-          experience_title: "Experience",
+          experience_title: "Work experience",
           exp1_title: "Digital Skills Manager — Manq'a Sostenible",
           exp1_desc:
             "Responsible for transferring digital skills to vulnerable communities - Development and implementation of Moodle CMS and an academic enrollment system based on open-source technology.",
@@ -1016,6 +1107,10 @@
           exp6_desc: "Internships and technical responsibilities at YPFB, IRT, Medical Tech, among others",
           exp6_period: "2006 - 2013",
           education_title: "Education",
+          portfolio_title: "Product Portfolio",
+          portfolio_caption_1: "image caption",
+          portfolio_caption_2: "image caption",
+          portfolio_caption_3: "image caption",
           edu1_title: "Badge - Google Data Analytics Certification",
           edu1_institute: "Inco Academy - Coursera, USA (Online)",
           edu1_year: "2025",
@@ -1140,6 +1235,39 @@
           b.classList.toggle("lang-active", isActive);
           b.setAttribute("aria-pressed", isActive ? "true" : "false");
           b.setAttribute("aria-label", isActive ? (initial === "es" ? "Idioma seleccionado: Español" : "Selected language: English") : (b.getAttribute("data-lang") === "es" ? "Cambiar a Español" : "Change to English"));
+        });
+      })();
+    </script>
+    <script>
+      // Modal de visor de imágenes para portafolio
+      (function () {
+        function openModal(src, alt) {
+          let overlay = document.createElement('div');
+          overlay.className = 'modal-overlay';
+          overlay.tabIndex = -1;
+          overlay.innerHTML = `
+            <div class="modal-content relative">
+              <button class="modal-close" aria-label="Cerrar">✕</button>
+              <img src="${src}" alt="${alt || ''}" />
+            </div>
+          `;
+          document.body.appendChild(overlay);
+          const closeBtn = overlay.querySelector('.modal-close');
+          function close() { overlay.remove(); document.removeEventListener('keydown', onKey); }
+          function onKey(e) { if (e.key === 'Escape') close(); }
+          closeBtn.addEventListener('click', close);
+          overlay.addEventListener('click', (ev) => { if (ev.target === overlay) close(); });
+          document.addEventListener('keydown', onKey);
+        }
+
+        document.addEventListener('click', (e) => {
+          const a = e.target.closest && e.target.closest('.portfolio-thumb');
+          if (a) {
+            e.preventDefault();
+            const src = a.getAttribute('data-src') || a.querySelector('img')?.src;
+            const alt = a.querySelector('img')?.alt || '';
+            openModal(src, alt);
+          }
         });
       })();
     </script>
